@@ -6,6 +6,27 @@
 
     class UserSearch extends UserIdentity{
 
+        public function rules(){
+            return [
+                [
+                    [
+                        'id',
+                        'candidate',
+                        'confirmed'
+                    ],
+                    'integer'
+                ],
+                [
+                    [
+                        'username',
+                        'email',
+                        'f_name',
+                        'l_name'
+                    ],
+                    'safe'
+                ],
+            ];
+        }
 
         public function search($queryParams){
             $query = UserIdentity::find();
@@ -13,15 +34,22 @@
             $this->load($queryParams);
 
             if(!$this->validate()){
+                $query->where('0=1');
                 return $dataProvider;
             }
 
             $query->andFilterWhere(['candidate' => $this->candidate])
+                  ->andFilterWhere(['id' => $this->id])
                   ->andFilterWhere(['confirmed' => $this->confirmed])
                   ->andFilterWhere([
                                        'like',
                                        'username',
                                        $this->username
+                                   ])
+                  ->andFilterWhere([
+                                       'like',
+                                       'email',
+                                       $this->email
                                    ])
                   ->andFilterWhere([
                                        'like',

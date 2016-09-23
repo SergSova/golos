@@ -8,8 +8,23 @@
 
     class UserIdentity extends User implements IdentityInterface{
 
+        public function getAllVote(){
+            return $this->getVotes()
+                        ->where(['vote' => true])
+                        ->count() - $this->getVotes()
+                                         ->where(['vote' => false])
+                                         ->count();
+        }
+
         public function scenarios(){
-            return ArrayHelper::merge(parent::scenarios(), [
+            $scenario = [
+                'filter' => [
+                    'username',
+                    'email',
+                    'f_name',
+                    'l_name',
+                    'candidate',
+                ],
                 'register' => [
                     'username',
                     'email',
@@ -17,7 +32,9 @@
                     'f_name',
                     'l_name',
                 ]
-            ]);
+            ];
+
+            return ArrayHelper::merge(parent::scenarios(), $scenario);
         }
 
         /**

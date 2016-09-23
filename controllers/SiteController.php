@@ -4,6 +4,7 @@
 
     use app\models\forms\LoginForm;
     use app\models\forms\RegistrationForm;
+    use app\models\search\UserSearch;
     use app\models\UserIdentity;
     use Yii;
     use yii\filters\AccessControl;
@@ -62,7 +63,13 @@
          * @return string
          */
         public function actionIndex(){
-            return $this->render('index');
+            $searchUser = new UserSearch(['candidate'=>true]);
+            $dataProvider = $searchUser->search(Yii::$app->request->queryParams);
+
+            return $this->render('index', [
+                'searchUser' => $searchUser,
+                'dataProvider' => $dataProvider
+            ]);
         }
 
         public function actionLogin(){
@@ -101,7 +108,7 @@
             if($user){
                 $user->access_token = null;
                 $user->confirmed = true;
-                if($user->save()&&Yii::$app->user->login($user, 3600 * 24 * 30)){
+                if($user->save() && Yii::$app->user->login($user, 3600 * 24 * 30)){
                     $this->goHome();
                 }
             }
@@ -113,6 +120,5 @@
 
             return $this->goHome();
         }
-
 
     }
