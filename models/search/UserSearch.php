@@ -1,14 +1,14 @@
 <?php
     namespace app\models\search;
 
-    use app\models\User;
+    use app\models\UserIdentity;
     use yii\data\ActiveDataProvider;
 
-    class UserSearch extends User{
+    class UserSearch extends UserIdentity{
 
 
         public function search($queryParams){
-            $query = User::find();
+            $query = UserIdentity::find();
             $dataProvider = new ActiveDataProvider(['query' => $query]);
             $this->load($queryParams);
 
@@ -17,6 +17,7 @@
             }
 
             $query->andFilterWhere(['candidate' => $this->candidate])
+                  ->andFilterWhere(['confirmed' => $this->confirmed])
                   ->andFilterWhere([
                                        'like',
                                        'username',

@@ -7,12 +7,12 @@ use Yii;
 /**
  * This is the model class for table "gol_social".
  *
- * @property integer $id
- * @property integer $user_id
- * @property string $social_name
- * @property string $social_id
+ * @property integer      $id
+ * @property integer      $user_id
+ * @property string       $social_name
+ * @property string       $social_id
  *
- * @property User $user
+ * @property UserIdentity $user
  */
 class Social extends \yii\db\ActiveRecord
 {
@@ -33,7 +33,7 @@ class Social extends \yii\db\ActiveRecord
             [['user_id', 'social_name', 'social_id'], 'required'],
             [['user_id'], 'integer'],
             [['social_name', 'social_id'], 'string', 'max' => 255],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserIdentity::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -55,6 +55,6 @@ class Social extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(UserIdentity::className(), ['id' => 'user_id']);
     }
 }

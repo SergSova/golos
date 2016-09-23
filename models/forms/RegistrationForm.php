@@ -2,7 +2,7 @@
 
     namespace app\models\forms;
 
-    use app\models\User;
+    use app\models\UserIdentity;
     use Yii;
     use yii\base\Model;
 
@@ -23,7 +23,9 @@
                     [
                         'username',
                         'password',
-                        'email'
+                        'email',
+                        'l_name',
+                        'f_name'
                     ],
                     'required'
                 ],
@@ -35,14 +37,14 @@
                     ['username'],
                     'unique',
                     'skipOnError' => true,
-                    'targetClass' => User::className(),
+                    'targetClass' => UserIdentity::className(),
                     'targetAttribute' => ['username' => 'username']
                 ],
                 [
                     ['email'],
                     'unique',
                     'skipOnError' => true,
-                    'targetClass' => User::className(),
+                    'targetClass' => UserIdentity::className(),
                     'targetAttribute' => ['email' => 'email']
                 ],
                 [
@@ -80,14 +82,23 @@
 
         public function register(){
             if($this->validate()){
-                $user = new User();
-                $user->username = $this->username;
-                $user->email = $this->email;
+                $user = new UserIdentity();
+                $user->scenario = 'register';
+                $user->attributes = $this->attributes;
                 $user->setPassword($this->password);
-                $user->f_name = $this->f_name;
-                $user->l_name = $this->l_name;
-                $user->photo = json_encode($this->photo);
-
+                $user->access_token = Yii::$app->security->generateRandomString();
+                if($user->save()){
+                    return Yii::$app->mailer->compose([
+                                                          'html' => 'confirmation-email-html',
+                                                          'text' => 'confirmation-email-text',
+                                                      ], [
+                                                          'user' => $user
+                                                      ])
+                                            ->setFrom(Yii::$app->params['supportEmail'])
+                                            ->setTo($user->email)
+                                            ->setSubject('Подтверждение почты')
+                                            ->send();
+                }
             }
 
             return null;
