@@ -5,6 +5,7 @@
      * @var $dataProvider \yii\data\ActiveDataProvider
      */
     use app\assets\VoteAsset;
+    use app\commands\SMSClient;
     use yii\helpers\Url;
     use yii\widgets\ListView;
 
@@ -22,5 +23,5 @@ JS;
 <?= ListView::widget([
                          'dataProvider' => $dataProvider,
                          'itemView' => '_candidate_item',
-                         'itemOptions' => ['class'=>'test']
+                         'itemOptions' => ['class' => 'test']
                      ]) ?>

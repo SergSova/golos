@@ -20,6 +20,8 @@ use Yii;
  * @property string $role
  * @property integer $candidate
  * @property integer $confirmed
+ * @property string $phone
+ * @property integer $confirmSMS
  *
  * @property Social[] $socials
  * @property Vote[] $votes
@@ -43,11 +45,12 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'password', 'email', 'f_name', 'l_name'], 'required'],
+            [['username', 'password', 'email', 'f_name', 'l_name', 'phone'], 'required'],
             [['password_reset_token', 'role'], 'string'],
-            [['candidate', 'confirmed'], 'integer'],
+            [['candidate', 'confirmed', 'confirmSMS'], 'integer'],
             [['username', 'email', 'f_name', 'l_name'], 'string', 'max' => 50],
             [['password', 'auth_key', 'access_token', 'photo'], 'string', 'max' => 255],
+            [['phone'], 'string', 'max' => 25],
             [['email'], 'unique'],
             [['username'], 'unique'],
         ];
@@ -72,6 +75,8 @@ class User extends \yii\db\ActiveRecord
             'role' => 'Role',
             'candidate' => 'Candidate',
             'confirmed' => 'Confirmed',
+            'phone' => 'Phone',
+            'confirmSMS' => 'Confirm Sms',
         ];
     }
 

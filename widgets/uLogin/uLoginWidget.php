@@ -12,7 +12,7 @@
             parent::init();
             $this->params = [
                 'display' => 'panel',
-                'fields' => 'first_name,last_name,email,photo_big',
+                'fields' => 'first_name,last_name,email,photo_big,phone',
                 'optional' => '',
                 'providers' => 'vkontakte,odnoklassniki,mailru,facebook',
                 'hidden' => 'twitter,google,yandex,livejournal,openid,lastfm,linkedin,liveid,soundcloud,steam',

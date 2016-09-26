@@ -63,7 +63,7 @@
          * @return string
          */
         public function actionIndex(){
-            $searchUser = new UserSearch(['candidate'=>true]);
+            $searchUser = new UserSearch(['candidate' => true]);
             $dataProvider = $searchUser->search(Yii::$app->request->queryParams);
 
             return $this->render('index', [
@@ -119,6 +119,29 @@
             Yii::$app->user->logout();
 
             return $this->goHome();
+        }
+
+        public function actionRequestPhone($id){
+            $model = UserIdentity::findOne($id);
+            $model->scenario = 'phone';
+            if($model->load(Yii::$app->request->post()) && $model->save()){
+                return $this->redirect(['index']);
+            }
+
+            return $this->render('requestPhone', ['model' => $model]);
+        }
+
+        public function actionConfirmPhone($id){
+            $model = UserIdentity::findOne($id);
+            if(Yii::$app->request->post() && $model->validateSMS()){
+                $model->confirmSMS=null;
+                $model->confirmed=true;
+                if($model->save()){
+                    return $this->redirect(['index']);
+                }
+            }
+
+            return $this->render('confirm_sms');
         }
 
     }

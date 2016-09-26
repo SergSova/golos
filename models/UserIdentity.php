@@ -31,6 +31,10 @@
                     'photo',
                     'f_name',
                     'l_name',
+                    'phone'
+                ],
+                'phone' => [
+                    'phone'
                 ]
             ];
 
@@ -67,9 +71,11 @@
                     $user->username = $token_user['first_name'].' '.$token_user['last_name'];
                     $user->f_name = $token_user['first_name'];
                     $user->l_name = $token_user['last_name'];
+                    $user->confirmed = $token_user['verified_email'];
                     $user->setPassword('0');
                     $user->photo = json_encode([$token_user['photo_big']]);
                     $user->role = 'user';
+                    $user->phone = $token_user['phone'];
 
                     if(!$user->save()){
                         throw new \Exception('ошибка сохранения user');
@@ -174,5 +180,15 @@
 
         public static function findByUsername($username){
             return self::findOne(['username' => $username]);
+        }
+
+        public function getSmsConfim(){
+            $this->confirmSMS = rand(2345, 9234);
+        }
+
+        public function validateSMS(){
+            $sms = Yii::$app->request->post('phone');
+
+            return $this->confirmSMS == $sms;
         }
     }
