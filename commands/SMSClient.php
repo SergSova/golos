@@ -6,6 +6,11 @@
     use Yii;
     use yii\base\Object;
 
+    /**
+     * https://my.smsclub.mobi/send/single
+     * Class SMSClient
+     * @package app\commands
+     */
     class SMSClient extends Object{
         public $model;
         public $to;

@@ -45,8 +45,8 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'password', 'email', 'f_name', 'l_name', 'phone'], 'required'],
-            [['password_reset_token', 'role'], 'string'],
+            [['username', 'password', 'email', 'f_name', 'l_name'], 'required'],
+            [['password_reset_token', 'role', 'phone'], 'string'],
             [['candidate', 'confirmed', 'confirmSMS'], 'integer'],
             [['username', 'email', 'f_name', 'l_name'], 'string', 'max' => 50],
             [['password', 'auth_key', 'access_token', 'photo'], 'string', 'max' => 255],

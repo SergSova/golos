@@ -8,12 +8,11 @@
 
     class UserIdentity extends User implements IdentityInterface{
 
+
         public function getAllVote(){
             return $this->getVotes()
-                        ->where(['vote' => true])
-                        ->count() - $this->getVotes()
-                                         ->where(['vote' => false])
-                                         ->count();
+                        ->sum('vote') ? $this->getVotes()
+                                             ->sum('vote') : 0;
         }
 
         public function scenarios(){
@@ -35,7 +34,10 @@
                 ],
                 'phone' => [
                     'phone'
-                ]
+                ],
+                'candidate' => [
+                    'candidate'
+                ],
             ];
 
             return ArrayHelper::merge(parent::scenarios(), $scenario);
@@ -76,7 +78,6 @@
                     $user->photo = json_encode([$token_user['photo_big']]);
                     $user->role = 'user';
                     $user->phone = $token_user['phone'];
-
                     if(!$user->save()){
                         throw new \Exception('ошибка сохранения user');
                     }

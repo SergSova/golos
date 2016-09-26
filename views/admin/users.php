@@ -14,7 +14,7 @@
         [
             'attribute' => 'confirmed',
             'content' => function($model){
-                return '<span class="glyphicon '.(($model->candidate) ? 'glyphicon-ok' : 'glyphicon-remove').'"></span>';
+                return '<span class="glyphicon '.(($model->confirmed) ? 'glyphicon-ok' : 'glyphicon-remove').'"></span>';
             }
         ],
         'role',

@@ -7,13 +7,14 @@ use Yii;
 /**
  * This is the model class for table "{{%vote}}".
  *
- * @property integer      $id
- * @property integer      $user_id
- * @property integer      $vote
- * @property integer      $candidate_id
+ * @property integer $id
+ * @property integer $user_id
+ * @property integer $vote
+ * @property integer $candidate_id
+ * @property string $user_info
  *
- * @property UserIdentity $candidate
- * @property UserIdentity $user
+ * @property User $candidate
+ * @property User $user
  */
 class Vote extends \yii\db\ActiveRecord
 {
@@ -31,11 +32,12 @@ class Vote extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'vote', 'candidate_id'], 'required'],
             [['user_id', 'vote', 'candidate_id'], 'integer'],
+            [['vote', 'candidate_id'], 'required'],
+            [['user_info'], 'string'],
             [['user_id', 'candidate_id'], 'unique', 'targetAttribute' => ['user_id', 'candidate_id'], 'message' => 'The combination of User ID and Candidate ID has already been taken.'],
-            [['candidate_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserIdentity::className(), 'targetAttribute' => ['candidate_id' => 'id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserIdentity::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['candidate_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['candidate_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -49,6 +51,7 @@ class Vote extends \yii\db\ActiveRecord
             'user_id' => 'User ID',
             'vote' => 'Vote',
             'candidate_id' => 'Candidate ID',
+            'user_info' => 'User Info',
         ];
     }
 
@@ -57,7 +60,7 @@ class Vote extends \yii\db\ActiveRecord
      */
     public function getCandidate()
     {
-        return $this->hasOne(UserIdentity::className(), ['id' => 'candidate_id']);
+        return $this->hasOne(User::className(), ['id' => 'candidate_id']);
     }
 
     /**
@@ -65,6 +68,6 @@ class Vote extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(UserIdentity::className(), ['id' => 'user_id']);
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 }

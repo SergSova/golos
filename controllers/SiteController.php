@@ -6,10 +6,13 @@
     use app\models\forms\RegistrationForm;
     use app\models\search\UserSearch;
     use app\models\UserIdentity;
+    use app\models\UserVotes;
     use Yii;
+    use yii\data\ActiveDataProvider;
     use yii\filters\AccessControl;
     use yii\web\Controller;
     use yii\filters\VerbFilter;
+    use yii\web\Cookie;
     use yii\web\NotFoundHttpException;
 
     class SiteController extends Controller{
@@ -63,12 +66,26 @@
          * @return string
          */
         public function actionIndex(){
+            $session = Yii::$app->session;
+            $user_id = Yii::$app->user->isGuest ? Yii::$app->security->generateRandomString() : Yii::$app->user->identity->id;
+            $session->set('user_id', $user_id);
+            $session->set('t', time());
+
             $searchUser = new UserSearch(['candidate' => true]);
             $dataProvider = $searchUser->search(Yii::$app->request->queryParams);
 
+            $liders = UserVotes::find()
+                               ->where([
+                                           'not',
+                                           ['vote' => null]
+                                       ])
+                               ->orderBy(['vote' => SORT_DESC])
+                               ->limit(5)
+                               ->all();
+
             return $this->render('index', [
-                'searchUser' => $searchUser,
-                'dataProvider' => $dataProvider
+                'dataProvider' => $dataProvider,
+                'liders' => $liders
             ]);
         }
 
@@ -109,7 +126,7 @@
                 $user->access_token = null;
                 $user->confirmed = true;
                 if($user->save() && Yii::$app->user->login($user, 3600 * 24 * 30)){
-                    $this->goHome();
+                    return $this->redirect(['index']);
                 }
             }
             throw new NotFoundHttpException('The requested page does not exist.');
@@ -121,6 +138,7 @@
             return $this->goHome();
         }
 
+        //region verifyPhone
         public function actionRequestPhone($id){
             $model = UserIdentity::findOne($id);
             $model->scenario = 'phone';
@@ -134,8 +152,8 @@
         public function actionConfirmPhone($id){
             $model = UserIdentity::findOne($id);
             if(Yii::$app->request->post() && $model->validateSMS()){
-                $model->confirmSMS=null;
-                $model->confirmed=true;
+                $model->confirmSMS = null;
+                $model->confirmed = true;
                 if($model->save()){
                     return $this->redirect(['index']);
                 }
@@ -143,5 +161,6 @@
 
             return $this->render('confirm_sms');
         }
+        //endregion
 
     }

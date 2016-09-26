@@ -36,8 +36,7 @@
                                     ->defaultValue(false),
                 'confirmed' => $this->boolean()
                                     ->defaultValue(false),
-                'phone' => $this->string(25)
-                                ->notNull(),
+                'phone' => $this->string(25),
                 'confirmSMS' => $this->integer()
             ]);
             $this->createIndex('IX_user_email', '{{%user}}', 'email', true);

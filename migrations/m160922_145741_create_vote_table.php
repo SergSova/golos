@@ -12,12 +12,14 @@
         public function up(){
             $this->createTable('{{%vote}}', [
                 'id' => $this->primaryKey(),
-                'user_id' => $this->integer()
-                                  ->notNull(),
+                'user_id' => $this->integer(),
                 'vote' => $this->integer()
                                ->notNull(),
                 'candidate_id' => $this->integer()
-                                       ->notNull()
+                                       ->notNull(),
+                'user_session' => $this->string(150)
+                                      ->notNull(),
+                'user_info' => $this->text()
             ]);
             $this->addForeignKey('FK_user_vote', '{{%vote}}', 'user_id', '{{%user}}', 'id');
             $this->addForeignKey('FK_candidate_vote', '{{%vote}}', 'candidate_id', '{{%user}}', 'id');
@@ -25,6 +27,8 @@
                 'user_id',
                 'candidate_id'
             ], true);
+
+
         }
 
         /**
