@@ -25,7 +25,10 @@
          'content'=>function($model){
             return Html::a('',['admin/remove-candidate','id'=>$model->id],['class'=>'text-danger glyphicon glyphicon-remove']);
          }
-        ]
+        ],
+        ['content'=>function($model){
+            return Html::a('Просмотреть',['admin/candidate-votes','id'=>$model->id],['class'=>'btn btn-danger']);
+        }]
 
     ]
 

@@ -17,6 +17,8 @@
                                ->notNull(),
                 'candidate_id' => $this->integer()
                                        ->notNull(),
+                'user_cookie' => $this->string(150)
+                                      ->notNull(),
                 'user_session' => $this->string(150)
                                       ->notNull(),
                 'user_info' => $this->text()
@@ -25,7 +27,9 @@
             $this->addForeignKey('FK_candidate_vote', '{{%vote}}', 'candidate_id', '{{%user}}', 'id');
             $this->createIndex('IX_user_candidate', '{{%vote}}', [
                 'user_id',
-                'candidate_id'
+                'candidate_id',
+                'user_session',
+                'user_cookie'
             ], true);
 
 

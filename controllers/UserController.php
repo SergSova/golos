@@ -25,11 +25,15 @@
         public function actionIndex(){
             $model = Yii::$app->user->identity;
 
-            return $this->render('cabinet',['model'=>$model]);
+            return $this->render('cabinet', ['model' => $model]);
         }
 
         public function actionAddCandidate($id){
-            $model  = UserIdentity::findOne($id);
+            $model = UserIdentity::findOne($id);
+            $model->candidate = 1;
+            $model->scenario = 'candidate';
+            $model->save();
 
+            return $this->goBack();
         }
     }

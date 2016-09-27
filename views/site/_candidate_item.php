@@ -4,11 +4,11 @@
      * @var $model \app\models\UserIdentity
      */
 
-    $session = Yii::$app->session;
+    $cookies = Yii::$app->request->cookies;
     $visible = \app\models\Vote::find()
                                ->where([
                                            'candidate_id' => $model->id,
-                                           'user_session' => $session['user_id']
+                                           'user_cookie' => $cookies->get('user_cookie')->value
                                        ])
                                ->exists();
 ?>

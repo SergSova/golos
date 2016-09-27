@@ -1,6 +1,6 @@
 $('.upvote').on('click', function () {
     var id = $(this).parents('.test').data('key');
-    $.post(urlVoteUp, {"id": id}, function (data) {
+    $.post(urlVote, {"id": id,"value":1}, function (data) {
         var result = JSON.parse(data);
         if (typeof result == 'object') {
             console.log(result.error);
@@ -14,7 +14,7 @@ $('.upvote').on('click', function () {
 });
 $('.downvote').on('click', function () {
     var id = $(this).parents('.test').data('key');
-    $.post(urlVoteDown, {"id": id}, function (data) {
+    $.post(urlVote, {"id": id,"value":-1}, function (data) {
         var result = JSON.parse(data);
         if (typeof result == 'object') {
             console.log(result.error);

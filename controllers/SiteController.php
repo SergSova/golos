@@ -67,9 +67,18 @@
          */
         public function actionIndex(){
             $session = Yii::$app->session;
-            $user_id = Yii::$app->user->isGuest ? Yii::$app->security->generateRandomString() : Yii::$app->user->identity->id;
-            $session->set('user_id', $user_id);
-            $session->set('t', time());
+            if(!$session->has('user_session')){
+                $session->set('user_session', Yii::$app->security->generateRandomString());
+                $session->set('t', microtime());
+            }
+            $cookies = Yii::$app->request->cookies;
+            if(!$cookies->has('user_cookie')){
+                $cookies = Yii::$app->response->cookies;
+                $cookies->add(new Cookie([
+                                             'name' => 'user_cookie',
+                                             'value' => Yii::$app->security->generateRandomString()
+                                         ]));
+            }
 
             $searchUser = new UserSearch(['candidate' => true]);
             $dataProvider = $searchUser->search(Yii::$app->request->queryParams);
@@ -133,7 +142,7 @@
         }
 
         public function actionLogout(){
-            Yii::$app->user->logout();
+            Yii::$app->user->logout(false);
 
             return $this->goHome();
         }

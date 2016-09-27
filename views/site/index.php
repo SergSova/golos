@@ -10,11 +10,9 @@
     use yii\widgets\Pjax;
 
     $this->title = "Голосовалка";
-    $urlUp = Url::to(['rate/up-vote'], true);
-    $urlDown = Url::to(['rate/down-vote'], true);
+    $urlVote = Url::to(['rate/vote'], true);
     $js = <<<JS
-var urlVoteUp='{$urlUp}';
-var urlVoteDown='{$urlDown}';
+var urlVote='{$urlVote}';
 JS;
     $this->registerJs($js, \yii\web\View::POS_END);
     VoteAsset::register($this);

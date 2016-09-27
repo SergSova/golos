@@ -1,15 +1,16 @@
 <?php
 
-/* @var $this \yii\web\View */
-/* @var $content string */
+    /* @var $this \yii\web\View */
+    /* @var $content string */
 
-use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
-use app\assets\AppAsset;
+    use yii\bootstrap\Alert;
+    use yii\helpers\Html;
+    use yii\bootstrap\Nav;
+    use yii\bootstrap\NavBar;
+    use yii\widgets\Breadcrumbs;
+    use app\assets\AppAsset;
 
-AppAsset::register($this);
+    AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -26,40 +27,57 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
-    NavBar::begin([
-        'brandLabel' => 'My Company',
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post', ['class' => 'navbar-form'])
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
-    ]);
-    NavBar::end();
+        NavBar::begin([
+                          'brandLabel' => 'My Company',
+                          'brandUrl' => Yii::$app->homeUrl,
+                          'options' => [
+                              'class' => 'navbar-inverse navbar-fixed-top',
+                          ],
+                      ]);
+
+        $items = [];
+        if(Yii::$app->user->isGuest){
+
+            $items[] = [
+                'label' => 'Login',
+                'url' => ['/site/login']
+            ];
+        }else{
+            if(Yii::$app->user->identity->role == 'admin'){
+                $items[] = [
+                    'label' => 'Кандидаты',
+                    'url' => ['/admin/candidates']
+                ];
+                $items[] = [
+                    'label' => 'Пользователи',
+                    'url' => ['/admin/users']
+                ];
+                $items[] = [
+                    'label' => 'Голоса',
+                    'url' => ['/admin/votes']
+                ];
+            }
+            $items[] = [
+                'label' => 'Cabinet',
+                'url' => ['/user/index']
+            ];
+            $items[] = '<li>'.Html::beginForm(['/site/logout'], 'post',
+                                              ['class' => 'navbar-form']).Html::submitButton('Logout ('.Yii::$app->user->identity->username.')',
+                                                                                             ['class' => 'btn btn-link']).Html::endForm().'</li>';
+        }
+
+        echo Nav::widget([
+                             'options' => ['class' => 'navbar-nav navbar-right'],
+                             'items' => $items
+                         ]);
+        NavBar::end();
     ?>
 
     <div class="container">
         <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
+                                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                                ]) ?>
+
         <?= $content ?>
     </div>
 </div>
