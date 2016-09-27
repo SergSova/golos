@@ -4,6 +4,7 @@
      * @var $dataProvider \yii\data\ActiveDataProvider
      */
 
+    use yii\bootstrap\Html;
     use yii\grid\GridView;
 
     $this->title = 'Users';
@@ -24,6 +25,11 @@
             'attribute' => 'candidate',
             'content' => function($model){
                 return '<span class="glyphicon '.(($model->candidate) ? 'glyphicon-ok' : 'glyphicon-remove').'"></span>';
+            }
+        ],
+        [
+            'content' => function($model){
+                return Html::a('Просмотреть',['user-votes','id'=>$model->id],['class'=>'btn btn-info']);
             }
         ],
 

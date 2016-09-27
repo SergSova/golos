@@ -12,7 +12,7 @@
 <?php foreach($candidate->votes as $vote): ?>
     <div class="panel panel-success">
         <p class="panel-heading">
-            <?= $vote->user->f_name.' '.$vote->user->l_name ?>
+            <?= $vote->fullNameUser ?>
         </p>
         <div class="panel-body">
             <div>

@@ -9,10 +9,16 @@
 
 <?php foreach($models as $vote): ?>
     <div class="panel panel-success">
-        <p class="panel-heading">
-            <?= $vote->user->f_name.' '.$vote->user->l_name ?>
-        </p>
+
+        <div class="panel-heading">
+            <span><?= $vote->fullNameUser ?></span>
+            <span class="pull-right"><?= $vote->vote > 0 ? 'за' : 'против' ?></span>
+        </div>
         <div class="panel-body">
+            <div>
+                <label class="text-danger">Голос за: </label>
+                <?= $vote->fullNameCandidate ?>
+            </div>
             <div>
                 <label for="session<?= $vote->id ?>">Сессия пользователя</label>
                 <?= Html::a($vote->user_session, [

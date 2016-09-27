@@ -50,4 +50,17 @@ class UserVotes extends \yii\db\ActiveRecord
             'vote' => 'Vote',
         ];
     }
+
+    public function getAvatar(){
+        if($this->photo){
+            $tmp = explode('/', $this->photo);
+            if($tmp[0] == '"http:\\'){
+                return str_replace('"', '', $this->photo);
+            }
+        }
+        $url = Yii::getAlias('@baseUrl');
+        $url .= is_null($this->photo) ? '/img/Default-avatar.jpg' : '/storage/'.$this->photo;
+
+        return $url;
+    }
 }

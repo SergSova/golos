@@ -8,6 +8,8 @@
     require(__DIR__.'/../vendor/yiisoft/yii2/Yii.php');
 
     Yii::setAlias('@mail', __DIR__.'/../mail/');
+    Yii::setAlias('@basePath',__DIR__.'/storage');
+    Yii::setAlias('@baseUrl','http://golosovalka.local');
 
     $config = yii\helpers\ArrayHelper::merge(require(__DIR__.'/../config/web.php'), require(__DIR__.'/../config/web_local.php'));
 

@@ -41,6 +41,11 @@
             return $this->render('users', ['dataProvider' => $dataProvider]);
         }
 
+        public function actionUserVotes($id){
+            $user = UserIdentity::findOne($id);
+            return $this->render('user_votes',['votes'=>$user->votes0]);
+        }
+
         public function actionVotes(){
             $searchVote = new VoteSearch();
             $dataProvider = $searchVote->search(Yii::$app->request->queryParams);

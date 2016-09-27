@@ -1,6 +1,7 @@
 html,
 body {
     height: 100%;
+    overflow: hidden;
 }
 
 .wrap {
@@ -89,3 +90,28 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
+
+.candidate-list{
+    overflow-y: auto;
+}
+.maxi-avatar{
+    height: 60px;
+    width: 60px;
+}
+.mini-avatar{
+    height: 40px;
+    width: 40px;
+}
+.micro-avatar{
+    height: 20px;
+    width: 20px;
+}
+
+.liders-block .panel-danger{
+    margin-bottom: 0;
+}
+.gol{
+    padding: 0.2rem;
+    display: inline-block;
+}
+

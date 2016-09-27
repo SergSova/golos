@@ -6,6 +6,7 @@
     use Yii;
     use yii\filters\AccessControl;
     use yii\web\Controller;
+    use yii\web\UploadedFile;
 
     class UserController extends Controller{
         public function behaviors(){
@@ -26,6 +27,15 @@
             $model = Yii::$app->user->identity;
 
             return $this->render('cabinet', ['model' => $model]);
+        }
+
+        public function actionChangePhoto(){
+            $model = Yii::$app->user->identity;
+            if(Yii::$app->request->isPost && $model->uploadPhoto()){
+                return $this->redirect(['index']);
+            }
+
+            return $this->render('photo');
         }
 
         public function actionAddCandidate($id){

@@ -3,8 +3,10 @@
     namespace app\models;
 
     use Yii;
+    use yii\bootstrap\Html;
     use yii\helpers\ArrayHelper;
     use yii\web\IdentityInterface;
+    use yii\web\UploadedFile;
 
     class UserIdentity extends User implements IdentityInterface{
 
@@ -75,7 +77,7 @@
                     $user->l_name = $token_user['last_name'];
                     $user->confirmed = $token_user['verified_email'];
                     $user->setPassword('0');
-                    $user->photo = json_encode([$token_user['photo_big']]);
+                    $user->photo = json_encode($token_user['photo_big']);
                     $user->role = 'user';
                     $user->phone = $token_user['phone'];
                     if(!$user->save()){
@@ -191,5 +193,27 @@
             $sms = Yii::$app->request->post('phone');
 
             return $this->confirmSMS == $sms;
+        }
+
+        public function uploadPhoto(){
+            $photo = UploadedFile::getInstanceByName('photo');
+            $basePath = Yii::getAlias('@basePath');
+            $photo->saveAs($basePath.'/'.$photo->name);
+            $this->photo = $photo->name;
+
+            return $this->save();
+        }
+
+        public function getAvatar(){
+            if($this->photo){
+                $tmp = explode('/', $this->photo);
+                if($tmp[0] == '"http:\\'){
+                    return str_replace('"', '', $this->photo);
+                }
+            }
+            $url = Yii::getAlias('@baseUrl');
+            $url .= is_null($this->photo) ? '/img/Default-avatar.jpg' : '/storage/'.$this->photo;
+
+            return $url;
         }
     }

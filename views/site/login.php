@@ -43,15 +43,16 @@
                 'class' => 'btn btn-primary',
                 'name' => 'login-button'
             ]) ?>
+            <?= Html::a('регистрация', ['site/registration'], ['class' => 'btn btn-warning']) ?>
         </div>
     </div>
 
     <?php ActiveForm::end(); ?>
+
+    <div class="col-lg-offset-1 col-lg-11">
     <?= uLoginWidget::widget([
                                  'redirect' => Url::to(['site/login'])
                              ]) ?>
-
-    <div>
-        <?= Html::a('регистрация', ['site/registration'], ['class' => 'btn btn-warning']) ?>
     </div>
+
 </div>

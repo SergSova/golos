@@ -10,7 +10,6 @@
 
     $columns = [
         ['class' => 'yii\grid\SerialColumn'],
-        'id',
         [
             'attribute' => 'user',
             'content' => function($model){
