@@ -19,6 +19,7 @@ use Yii;
  * @property string $photo
  * @property string $role
  * @property integer $candidate
+ * @property integer $alafa_register
  * @property integer $confirmed
  * @property string $phone
  * @property integer $confirmSMS
@@ -26,8 +27,6 @@ use Yii;
  * @property Social[] $socials
  * @property Vote[] $votes
  * @property Vote[] $votes0
- * @property User[] $users
- * @property User[] $candidates
  */
 class User extends \yii\db\ActiveRecord
 {
@@ -46,8 +45,8 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             [['username', 'password', 'email', 'f_name', 'l_name'], 'required'],
-            [['password_reset_token', 'role', 'phone'], 'string'],
-            [['candidate', 'confirmed', 'confirmSMS'], 'integer'],
+            [['password_reset_token', 'role'], 'string'],
+            [['candidate', 'alafa_register', 'confirmed', 'confirmSMS'], 'integer'],
             [['username', 'email', 'f_name', 'l_name'], 'string', 'max' => 50],
             [['password', 'auth_key', 'access_token', 'photo'], 'string', 'max' => 255],
             [['phone'], 'string', 'max' => 25],
@@ -74,6 +73,7 @@ class User extends \yii\db\ActiveRecord
             'photo' => 'Фото',
             'role' => 'Role',
             'candidate' => 'Candidate',
+            'alafa_register' => 'Alafa Register',
             'confirmed' => 'Confirmed',
             'phone' => 'Phone',
             'confirmSMS' => 'Confirm Sms',
@@ -102,21 +102,5 @@ class User extends \yii\db\ActiveRecord
     public function getVotes0()
     {
         return $this->hasMany(Vote::className(), ['user_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUsers()
-    {
-        return $this->hasMany(User::className(), ['id' => 'user_id'])->viaTable('{{%vote}}', ['candidate_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCandidates()
-    {
-        return $this->hasMany(User::className(), ['id' => 'candidate_id'])->viaTable('{{%vote}}', ['user_id' => 'id']);
     }
 }

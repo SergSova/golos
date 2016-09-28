@@ -17,6 +17,10 @@
                                              ->sum('vote') : 0;
         }
 
+        public function getFullName(){
+            return $this->f_name.' '.$this->l_name;
+        }
+
         public function scenarios(){
             $scenario = [
                 'filter' => [
@@ -72,6 +76,7 @@
                     $user = new self();
                     $user->access_token = $token_user['identity'];
                     $user->email = $token_user['email'];
+                    $user->alafa_register = AlafaUser::checkExist($token_user['email']);
                     $user->username = $token_user['first_name'].' '.$token_user['last_name'];
                     $user->f_name = $token_user['first_name'];
                     $user->l_name = $token_user['last_name'];

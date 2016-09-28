@@ -2,6 +2,7 @@
 
     namespace app\models\forms;
 
+    use app\models\AlafaUser;
     use app\models\UserIdentity;
     use Yii;
     use yii\base\Model;
@@ -86,6 +87,7 @@
                 $user->scenario = 'register';
                 $user->attributes = $this->attributes;
                 $user->setPassword($this->password);
+                $user->alafa_register = AlafaUser::checkExist($this->email);
                 $user->access_token = Yii::$app->security->generateRandomString();
                 if($user->save()){
                     return Yii::$app->mailer->compose([

@@ -123,10 +123,10 @@
         }
 
         public function getFullNameUser(){
-            return $this->user ? $this->user->f_name.' '.$this->user->l_name : 'Анонимный';
+            return $this->user ? $this->user->fullName : 'Анонимный';
         }
 
         public function getFullNameCandidate(){
-            return $this->candidate->f_name.' '.$this->candidate->l_name;
+            return $this->candidate->fullName;
         }
     }

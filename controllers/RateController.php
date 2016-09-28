@@ -2,6 +2,7 @@
 
     namespace app\controllers;
 
+    use app\models\Golos;
     use app\models\UserIdentity;
     use app\models\Vote;
     use Yii;
@@ -32,6 +33,11 @@
             $user_session = $session->get('user_session');
             $user_time = $session->get('t');
 
+            $golosovanie = Golos::getActiveGolos();
+            if($golosovanie->date_end<time()){
+//                Yii::$app->session->setFlash('info','Голосование закончено');
+                return '{"error":"Голосование уже закончено"}';
+            }
             if(!Yii::$app->user->isGuest){
                 $user = Yii::$app->user->identity;
             }

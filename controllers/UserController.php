@@ -40,9 +40,11 @@
 
         public function actionAddCandidate($id){
             $model = UserIdentity::findOne($id);
-            $model->candidate = 1;
-            $model->scenario = 'candidate';
-            $model->save();
+            if($model->alafa_register){
+                $model->candidate = 1;
+                $model->scenario = 'candidate';
+                $model->save();
+            }
 
             return $this->goBack();
         }

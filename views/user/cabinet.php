@@ -16,7 +16,7 @@
 <p>
     <label>Участие в голосовании</label>:
     <span class="glyphicon <?= ($model->candidate) ? 'glyphicon-ok text-success' : 'glyphicon-remove text-danger' ?>"></span>
-    <?php if($model->candidate != 1): ?>
+    <?php if($model->candidate != 1 && $model->alafa_register): ?>
         <?= Html::a('Подать заявку', [
             'add-candidate',
             'id' => $model->id

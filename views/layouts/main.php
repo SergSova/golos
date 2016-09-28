@@ -9,6 +9,7 @@
     use yii\bootstrap\NavBar;
     use yii\widgets\Breadcrumbs;
     use app\assets\AppAsset;
+    use yii\widgets\Pjax;
 
     AppAsset::register($this);
 ?>
@@ -45,6 +46,10 @@
         }else{
             if(Yii::$app->user->identity->role == 'admin'){
                 $items[] = [
+                    'label' => 'Голосования',
+                    'url' => ['/golos/index']
+                ];
+                $items[] = [
                     'label' => 'Кандидаты',
                     'url' => ['/admin/candidates']
                 ];
@@ -77,18 +82,10 @@
         <?= Breadcrumbs::widget([
                                     'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                                 ]) ?>
-
         <?= $content ?>
     </div>
 </div>
 
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
 
 <?php $this->endBody() ?>
 </body>

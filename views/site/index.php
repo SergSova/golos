@@ -5,6 +5,7 @@
      * @var $dataProvider \yii\data\ActiveDataProvider
      */
     use app\assets\VoteAsset;
+    use yii\bootstrap\Alert;
     use yii\helpers\Url;
     use yii\widgets\ListView;
     use yii\widgets\Pjax;
@@ -17,9 +18,18 @@ $('.candidate-list').css('height', $(window).height()-$('.navbar').height()*2-$(
 JS;
     $this->registerJs($js, \yii\web\View::POS_END);
     VoteAsset::register($this);
-
+    $golos = \app\models\Golos::getActiveGolos();
 ?>
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <strong>Дата старта: </strong><?= $golos->dateS ?>
+        <strong>Дата финиша: </strong><?= $golos->dateE ?>
+    </div>
+    <div class="panel-body">
+        <h3><?= $golos->about ?></h3>
+    </div>
 
+</div>
 <div class="row">
     <div class="col-sm-6 candidate-list">
         <p>Кандидаты</p>

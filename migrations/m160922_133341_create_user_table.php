@@ -34,6 +34,8 @@
                 'role' => "enum('user','admin') default 'user'",
                 'candidate' => $this->boolean()
                                     ->defaultValue(false),
+                'alafa_register' => $this->boolean()
+                                    ->defaultValue(false),
                 'confirmed' => $this->boolean()
                                     ->defaultValue(false),
                 'phone' => $this->string(25),

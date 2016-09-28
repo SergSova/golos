@@ -43,7 +43,8 @@
 
         public function actionUserVotes($id){
             $user = UserIdentity::findOne($id);
-            return $this->render('user_votes',['votes'=>$user->votes0]);
+
+            return $this->render('user_votes', ['votes' => $user->votes0]);
         }
 
         public function actionVotes(){
@@ -72,12 +73,15 @@
         }
 
         public function actionVoteBySession($session){
-            $models = Vote::findAll(['user_session'=>$session]);
-            return $this->render('votes_by',['models'=>$models]);
+            $models = Vote::findAll(['user_session' => $session]);
+
+            return $this->render('votes_by', ['models' => $models]);
         }
+
         public function actionVoteByCookie($cookie){
-            $models = Vote::findAll(['user_cookie'=>$cookie]);
-            return $this->render('votes_by',['models'=>$models]);
+            $models = Vote::findAll(['user_cookie' => $cookie]);
+
+            return $this->render('votes_by', ['models' => $models]);
         }
 
         public function actionRemoveVote($id){
@@ -85,5 +89,8 @@
                 ->delete();
 
             return $this->redirect(['votes']);
+        }
+
+        public function actionGetInfo(){
         }
     }
