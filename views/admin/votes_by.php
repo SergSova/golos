@@ -11,13 +11,13 @@
     <div class="panel panel-success">
 
         <div class="panel-heading">
-            <span><?= $vote->fullNameUser ?></span>
+            <span><?= $vote->user->fullName ?></span>
             <span class="pull-right"><?= $vote->vote > 0 ? 'за' : 'против' ?></span>
         </div>
         <div class="panel-body">
             <div>
                 <label class="text-danger">Голос за: </label>
-                <?= $vote->fullNameCandidate ?>
+                <?= $vote->candidate->fullName ?>
             </div>
             <div>
                 <label for="session<?= $vote->id ?>">Сессия пользователя</label>
@@ -39,6 +39,13 @@
                     <span><?= $v ?></span>
                     <br>
                 <?php endforeach; ?>
+                <?= Html::a('', [
+                    'remove-vote',
+                    'id' => $vote->id
+                ], [
+                                'class' => 'text-danger glyphicon glyphicon-remove pull-right',
+                                'data-confirm' => 'точно удалить'
+                            ]) ?>
             </div>
         </div>
     </div>

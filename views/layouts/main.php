@@ -7,6 +7,7 @@
     use yii\helpers\Html;
     use yii\bootstrap\Nav;
     use yii\bootstrap\NavBar;
+    use yii\helpers\Url;
     use yii\widgets\Breadcrumbs;
     use app\assets\AppAsset;
     use yii\widgets\Pjax;
@@ -27,9 +28,10 @@
 <?php $this->beginBody() ?>
 
 <div class="wrap">
+
     <?php
         NavBar::begin([
-                          'brandLabel' => 'My Company',
+                          'brandLabel' => '<img src="'.Url::to(['img/alafa.png'],true).'"> Алафа',
                           'brandUrl' => Yii::$app->homeUrl,
                           'options' => [
                               'class' => 'navbar-inverse navbar-fixed-top',

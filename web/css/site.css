@@ -115,3 +115,24 @@ a.desc:after {
     display: inline-block;
 }
 
+@font-face {
+    font-family: Alafa_Logo; /* Гарнитура шрифта */
+    src: url(../fonts/alafa_logo.ttf); /* Путь к файлу со шрифтом */
+}
+
+.navbar-brand {
+    font-family: Alafa_Logo;
+    padding: 0;
+}
+.navbar-brand a{
+    padding: 0;
+}
+.navbar-brand img{
+    height: 50px;
+    width: 50px;
+    display: inline-block;
+}
+
+@media (min-width: 768px){
+
+}

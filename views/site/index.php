@@ -5,7 +5,7 @@
      * @var $dataProvider \yii\data\ActiveDataProvider
      */
     use app\assets\VoteAsset;
-    use yii\bootstrap\Alert;
+    use app\models\Golos;
     use yii\helpers\Url;
     use yii\widgets\ListView;
     use yii\widgets\Pjax;
@@ -18,7 +18,7 @@ $('.candidate-list').css('height', $(window).height()-$('.navbar').height()*2-$(
 JS;
     $this->registerJs($js, \yii\web\View::POS_END);
     VoteAsset::register($this);
-    $golos = \app\models\Golos::getActiveGolos();
+    $golos = Golos::getActiveGolos();
 ?>
 <div class="panel panel-info">
     <div class="panel-heading">

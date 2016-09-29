@@ -6,13 +6,13 @@
 
     use yii\bootstrap\Html;
 
-    $this->title = $candidate->f_name.' '.$candidate->l_name;
+    $this->title = $candidate->fullName;
 ?>
 
 <?php foreach($candidate->votes as $vote): ?>
     <div class="panel panel-success">
         <p class="panel-heading">
-            <?= $vote->fullNameUser ?>
+            <?= $vote->user->fullName ?>
         </p>
         <div class="panel-body">
             <div>
@@ -35,6 +35,13 @@
                     <span><?= $v ?></span>
                     <br>
                 <?php endforeach; ?>
+                <?= Html::a('', [
+                    'remove-vote',
+                    'id' => $vote->id
+                ], [
+                                'class' => 'text-danger glyphicon glyphicon-remove pull-right',
+                                'data-confirm' => 'точно удалить'
+                            ]) ?>
             </div>
         </div>
     </div>

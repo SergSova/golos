@@ -12,7 +12,6 @@
                 return '<span class="glyphicon '.(($model->candidate) ? 'glyphicon-ok' : 'glyphicon-remove').'"></span>';
             }
         ],
-//        'role',
         'f_name',
         'l_name',
         [

@@ -13,7 +13,7 @@
         [
             'attribute' => 'user',
             'content' => function($model){
-                return $model->user->f_name.' '.$model->user->l_name;
+                return $model->user->fullName;
             }
         ],
         [
@@ -25,7 +25,7 @@
         [
             'attribute' => 'candidate',
             'content' => function($model){
-                return $model->candidate->f_name.' '.$model->candidate->l_name;
+                return $model->candidate->fullName;
             }
         ],
         'user_cookie',
