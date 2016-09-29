@@ -48,6 +48,10 @@
         }else{
             if(Yii::$app->user->identity->role == 'admin'){
                 $items[] = [
+                    'label' => 'Реклама',
+                    'url' => ['/reklama/index']
+                ];
+                $items[] = [
                     'label' => 'Голосования',
                     'url' => ['/golos/index']
                 ];

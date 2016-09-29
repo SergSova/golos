@@ -4,6 +4,7 @@
      * @var $model \app\models\UserIdentity
      */
 
+    use yii\bootstrap\Html;
 
     $cookies = Yii::$app->request->cookies;
     $visible = \app\models\Vote::find()
@@ -18,7 +19,7 @@
     <div class="panel-body">
         <div class="col-sm-10 col-xs-9">
             <img src="<?= $model->avatar ?>" class="mini-avatar">
-            <?= $model->fullName ?>
+            <?= Html::encode($model->fullName) ?>
         </div>
         <div class="col-sm-2 col-xs-3">
             <div class="row">

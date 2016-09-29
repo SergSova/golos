@@ -91,6 +91,5 @@
             return $this->redirect(['votes']);
         }
 
-        public function actionGetInfo(){
-        }
+
     }

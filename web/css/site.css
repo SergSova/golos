@@ -1,9 +1,15 @@
 html,
 body {
     height: 100%;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
-
+/*@media screen and (min-width: 992px){*/
+    /*html,*/
+    /*body {*/
+        /*height: 100%;*/
+        /*overflow: hidden;*/
+    /*}*/
+/*}*/
 .wrap {
     min-height: 100%;
     height: auto;
@@ -90,10 +96,12 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
-
-.candidate-list{
-    overflow-y: auto;
+@media screen and (min-width: 992px) {
+    .candidate-list {
+        overflow-y: auto;
+    }
 }
+
 .maxi-avatar{
     height: 60px;
     width: 60px;
@@ -131,8 +139,4 @@ a.desc:after {
     height: 50px;
     width: 50px;
     display: inline-block;
-}
-
-@media (min-width: 768px){
-
 }
