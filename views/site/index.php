@@ -46,25 +46,27 @@ JS;
                 <div class="col-sm-12 col-md-6 col-md-push-6 liders-block">
                     <div id="lb">
                         <?php Pjax::begin(['id' => 'liders_block']) ?>
-                        <p>Топ - 5</p>
-                        <?php foreach($liders as $model): ?>
-                            <div class="panel panel-danger">
-                                <div class="panel-body">
-                                    <div class="col-xs-10 col-md-10">
-                                        <img src="<?= $model->avatar ?>" class="micro-avatar">
-                                        <?= Html::encode($model->l_name.' '.$model->f_name) ?>
-                                    </div>
-                                    <div class="col-xs-2 col-md-2">
-                                        <div class="vote" id="vote-'.<?= $model->id ?>.'"><?= $model->vote ?></div>
+                        <?php if(count($liders)): ?>
+                            <p>Топ - 5</p>
+                            <?php foreach($liders as $model): ?>
+                                <div class="panel panel-danger">
+                                    <div class="panel-body">
+                                        <div class="col-xs-10 col-md-10">
+                                            <img src="<?= $model->avatar ?>" class="micro-avatar">
+                                            <?= Html::encode($model->l_name.' '.$model->f_name) ?>
+                                        </div>
+                                        <div class="col-xs-2 col-md-2">
+                                            <div class="vote" id="vote-'.<?= $model->id ?>.'"><?= $model->vote ?></div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        <?php endforeach; ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                         <?php Pjax::end() ?>
                     </div>
                     <p></p>
                 </div>
-                <div class="col-sm-12 col-md-4 col-md-push-4 rek-block visible-sm">
+                <div class="col-sm-12 col-md-4 col-md-push-4 rek-block visible-sm visible-xs">
                     <?php foreach($reklama as $rek): ?>
                         <div class="panel panel-info">
                             <?= $rek->title ? '<p class="panel-heading">'.$rek->title.'</p>' : '' ?>
@@ -82,7 +84,7 @@ JS;
                                          ]) ?></div>
             </div>
         </div>
-        <div class="col-sm-12 col-md-4 rek-block hidden-sm">
+        <div class="col-sm-12 col-md-4 rek-block hidden-sm hidden-xs">
             <?php foreach($reklama as $rek): ?>
                 <div class="panel panel-info">
                     <?= $rek->title ? '<p class="panel-heading">'.$rek->title.'</p>' : '' ?>
