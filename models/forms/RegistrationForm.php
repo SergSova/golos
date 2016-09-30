@@ -5,6 +5,7 @@
     use app\models\AlafaUser;
     use app\models\UserIdentity;
     use Yii;
+    use yii\base\Exception;
     use yii\base\Model;
 
     class RegistrationForm extends Model{
@@ -83,23 +84,34 @@
 
         public function register(){
             if($this->validate()){
-                $user = new UserIdentity();
-                $user->scenario = 'register';
-                $user->attributes = $this->attributes;
-                $user->setPassword($this->password);
-                $user->alafa_register = AlafaUser::checkExist($this->email);
-                $user->access_token = Yii::$app->security->generateRandomString();
-                if($user->save()){
-                    return Yii::$app->mailer->compose([
-                                                          'html' => 'confirmation-email-html',
-                                                          'text' => 'confirmation-email-text',
-                                                      ], [
-                                                          'user' => $user
-                                                      ])
-                                            ->setFrom(Yii::$app->params['supportEmail'])
-                                            ->setTo($user->email)
-                                            ->setSubject('Подтверждение почты')
-                                            ->send();
+                $transactuion = Yii::$app->db->beginTransaction();
+                try{
+                    $user = new UserIdentity();
+                    $user->scenario = 'register';
+                    $user->attributes = $this->attributes;
+                    $user->setPassword($this->password);
+                    $user->alafa_register = AlafaUser::checkExist($this->email);
+                    $user->access_token = Yii::$app->security->generateRandomString();
+                    if(!$user->save()){
+                        throw new Exception('ошибка записи');
+                    }
+                    $mail = Yii::$app->mailer->compose([
+                                                           'html' => 'confirmation-email-html',
+                                                           'text' => 'confirmation-email-text',
+                                                       ], [
+                                                           'user' => $user
+                                                       ])
+                                             ->setFrom(Yii::$app->params['supportEmail'])
+                                             ->setTo($user->email)
+                                             ->setSubject('Подтверждение почты')
+                                             ->send();
+                    if(!$mail){
+                        throw new Exception('ошибка почты');
+                    }
+                    $transactuion->commit();
+                    return $mail;
+                }catch(Exception $e){
+                    $transactuion->rollBack();
                 }
             }
 

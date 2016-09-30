@@ -11,7 +11,8 @@
      */
     class AlafaUser extends Model{
         public static function checkExist($email){
-            return Yii::$app->db2->createCommand('SELECT count(*) FROM customers_users WHERE email="'.$email.'"')
-                                 ->queryOne()>0;
+            $result = Yii::$app->db2->createCommand('SELECT count(*) as rows FROM customers_users WHERE email="'.$email.'"')
+                                    ->queryOne();
+            return $result['rows']>0;
         }
     }
