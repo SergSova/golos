@@ -91,7 +91,11 @@
                                ->orderBy(['vote' => SORT_DESC])
                                ->limit(5)
                                ->all();
-
+            $message = Yii::$app->session->get('messages');
+            if(!empty($message)){
+                Yii::$app->session->setFlash('success', $message);
+                Yii::$app->session->remove('message');
+            }
             return $this->render('index', [
                 'dataProvider' => $dataProvider,
                 'liders' => $liders
@@ -121,6 +125,7 @@
         public function actionRegistration(){
             $model = new RegistrationForm();
             if($model->load(Yii::$app->request->post()) && $model->register()){
+                Yii::$app->session->set('message', 'Check your mail');
                 return $this->goBack();
             }
 

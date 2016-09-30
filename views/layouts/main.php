@@ -3,14 +3,13 @@
     /* @var $this \yii\web\View */
     /* @var $content string */
 
-    use yii\bootstrap\Alert;
+    use app\widgets\MyAlert;
     use yii\helpers\Html;
     use yii\bootstrap\Nav;
     use yii\bootstrap\NavBar;
     use yii\helpers\Url;
     use yii\widgets\Breadcrumbs;
     use app\assets\AppAsset;
-    use yii\widgets\Pjax;
 
     AppAsset::register($this);
 ?>
@@ -31,7 +30,7 @@
 
     <?php
         NavBar::begin([
-                          'brandLabel' => '<img src="'.Url::to(['img/alafa.png'],true).'"> Алафа',
+                          'brandLabel' => '<img src="'.Url::to(['img/alafa.png'], true).'"> Алафа',
                           'brandUrl' => Yii::$app->homeUrl,
                           'options' => [
                               'class' => 'navbar-inverse navbar-fixed-top',
@@ -88,6 +87,7 @@
         <?= Breadcrumbs::widget([
                                     'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                                 ]) ?>
+        <?= MyAlert::widget() ?>
         <?= $content ?>
     </div>
 </div>

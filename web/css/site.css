@@ -140,3 +140,9 @@ a.desc:after {
     width: 50px;
     display: inline-block;
 }
+
+.golosovalka{
+    background-image: url(../img/12.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
