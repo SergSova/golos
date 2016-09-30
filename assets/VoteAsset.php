@@ -6,7 +6,7 @@
 
     class VoteAsset extends AssetBundle{
         public $js      = [
-            'js/vote.js'
+            '/web/js/vote.js'
         ];
         public $depends = [
             'app\assets\AppAsset'
