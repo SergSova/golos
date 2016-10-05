@@ -100,6 +100,9 @@ a.desc:after {
     .candidate-list {
         overflow-y: auto;
     }
+    .rek-block{
+        overflow-y: auto;
+    }
 }
 
 .maxi-avatar{
@@ -146,3 +149,10 @@ a.desc:after {
     background-repeat: no-repeat;
     background-size: cover;
 }
+.navbar-inverse{
+    background-color: green;
+}
+.font12{
+    font-size: 30px;
+}
+
