@@ -3,12 +3,13 @@ body {
     height: 100%;
     /*overflow: hidden;*/
 }
+
 /*@media screen and (min-width: 992px){*/
-    /*html,*/
-    /*body {*/
-        /*height: 100%;*/
-        /*overflow: hidden;*/
-    /*}*/
+/*html,*/
+/*body {*/
+/*height: 100%;*/
+/*overflow: hidden;*/
+/*}*/
 /*}*/
 .wrap {
     min-height: 100%;
@@ -96,32 +97,44 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
+
 @media screen and (min-width: 992px) {
     .candidate-list {
         overflow-y: auto;
     }
-    .rek-block{
+
+    .rek-block {
         overflow-y: auto;
+    }
+
+    .login-btn {
+        position: absolute;
+        left: 45%;
+        color: white !important;
+        font-size: 30px;
     }
 }
 
-.maxi-avatar{
-    height: 60px;
-    width: 60px;
+.maxi-avatar {
+    height: 400px;
+    width: 400px;
 }
-.mini-avatar{
-    height: 40px;
-    width: 40px;
+
+.mini-avatar {
+    height: 70px;
+    width: 70px;
 }
-.micro-avatar{
+
+.micro-avatar {
     height: 20px;
     width: 20px;
 }
 
-.liders-block .panel-danger{
+.liders-block .panel-danger {
     margin-bottom: 0;
 }
-.gol{
+
+.gol {
     padding: 0.2rem;
     display: inline-block;
 }
@@ -135,24 +148,33 @@ a.desc:after {
     font-family: Alafa_Logo;
     padding: 0;
 }
-.navbar-brand a{
+
+.navbar-brand a {
     padding: 0;
 }
-.navbar-brand img{
+
+.navbar-brand img {
     height: 50px;
     width: 50px;
     display: inline-block;
 }
 
-.golosovalka{
+.golosovalka {
     background-image: url(../img/12.jpg);
     background-repeat: no-repeat;
     background-size: cover;
 }
-.navbar-inverse{
+
+.navbar-inverse {
     background-color: green;
 }
-.font12{
+
+.font12 {
     font-size: 30px;
+}
+
+.liders-block .panel-body{
+    padding: 5px;
+    vertical-align: middle !important;
 }
 

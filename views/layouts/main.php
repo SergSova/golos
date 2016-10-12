@@ -31,8 +31,8 @@
     <?php
         NavBar::begin([
                           'brandLabel' => '<img src="'.Url::to(['img/alafa.png'], true).'"> Алафа',
-                          'brandUrl' => Yii::$app->homeUrl,
-                          'options' => [
+                          'brandUrl'   => Yii::$app->homeUrl,
+                          'options'    => [
                               'class' => 'navbar-inverse navbar-fixed-top',
                           ],
                       ]);
@@ -41,35 +41,35 @@
         if(Yii::$app->user->isGuest){
 
             $items[] = [
-                'label' => 'Login',
-                'url' => ['/site/login']
+                'label' => 'Регистрация',
+                'url'   => ['/site/login'],
             ];
         }else{
             if(Yii::$app->user->identity->role == 'admin'){
                 $items[] = [
                     'label' => 'Реклама',
-                    'url' => ['/reklama/index']
+                    'url'   => ['/reklama/index'],
                 ];
                 $items[] = [
                     'label' => 'Голосования',
-                    'url' => ['/golos/index']
+                    'url'   => ['/golos/index'],
                 ];
                 $items[] = [
                     'label' => 'Кандидаты',
-                    'url' => ['/admin/candidates']
+                    'url'   => ['/admin/candidates'],
                 ];
                 $items[] = [
                     'label' => 'Пользователи',
-                    'url' => ['/admin/users']
+                    'url'   => ['/admin/users'],
                 ];
                 $items[] = [
                     'label' => 'Голоса',
-                    'url' => ['/admin/votes']
+                    'url'   => ['/admin/votes'],
                 ];
             }
             $items[] = [
                 'label' => 'Cabinet',
-                'url' => ['/user/index']
+                'url'   => ['/user/index'],
             ];
             $items[] = '<li>'.Html::beginForm(['/site/logout'], 'post',
                                               ['class' => 'navbar-form']).Html::submitButton('Logout ('.Yii::$app->user->identity->username.')',
@@ -77,8 +77,8 @@
         }
 
         echo Nav::widget([
-                             'options' => ['class' => 'navbar-nav navbar-right'],
-                             'items' => $items
+                             'options' => Yii::$app->user->isGuest ? ['class' => 'navbar-nav login-btn'] : ['class' => 'navbar-nav navbar-right'],
+                             'items'   => $items,
                          ]);
         NavBar::end();
     ?>
